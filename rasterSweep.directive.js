@@ -12,24 +12,20 @@
         };
 
         function link(scope, element, attrs){
-            console.log('element', element);
+            // console.log('width', element[0].css('width'));
             var img = element[0].children[1];
-            img.onmouseover = function(event){
-                // console.log('hovering...', event);
-                // console.log('layerX', JSON.stringify(event.layerX));
-                // console.log('pageX', JSON.stringify(event.pageX));
-                // console.log('clientX', JSON.stringify(event.clientX));
-                // console.log('screenX', JSON.stringify(event.screenX));
-                img.onmousemove = function(moveevent){
-                    var mouseX = moveevent.pageX - img.offsetLeft;
-                    var mouseY = moveevent.pageY - img.offsetTop;
-                    element[0].children[2].style.left = mouseX + 'px';
-                    element[0].children[2].style.top = mouseY + 'px';
-                }
-
-                
+            var sweeper = element.find('#raster-glass');
+            sweeper.css('width', img.width/10);
+            sweeper.css('height', img.width/10);
+            sweeper.css('border-width', img.width/100);
+            console.log('element', element);
+            img.onmousemove = function(moveevent){
+                var mouseX = moveevent.pageX - img.offsetLeft;
+                var mouseY = moveevent.pageY - img.offsetTop;
+                sweeper.css('left', mouseX + 'px');
+                sweeper.css('top', mouseY + 'px');
+                element.find('#raster-sweeper-top-image').css('clip-path', 'polygon('+ mouseX + 'px ' + mouseY + 'px, ' + mouseX+img.width + 'px '+ mouseY + 'px, ' + mouseX+img.width + 'px ' + mouseY+img.height + 'px, '+ mouseX +'px ' + mouseY+img.height + 'px)');
             }
-            console.log('hello world');
         }
     }
 })();

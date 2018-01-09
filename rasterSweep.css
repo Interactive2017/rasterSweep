@@ -15,7 +15,8 @@ raster-sweep div#raster-glass{
     width: 100px;
     height: 100px;
     background-color: transparent;
-    border-width: 10px;
+    /* border-width: 10px; */
+    z-index: 1000;
     border-color: red;
     border-style: solid;
     position: absolute;
@@ -23,9 +24,28 @@ raster-sweep div#raster-glass{
     left: 0;
 }
 
+#raster-sweeper-btn-image{
+    z-index: 50;
+}
+
+#raster-sweeper-top-image{
+    z-index: 100;
+}
 raster-sweep,div#raster-glass :hover{
     cursor: none;
 }
+
+/* raster-sweep div#raster-glass{
+
+    background-repeat:no-repeat;
+    background-position:center top;
+    background-attachment:fixed;
+    background-size:cover;
+    -webkit-background-size:cover;
+    -moz-background-size:cover;
+    -o-background-size:cover;
+} */
+
 
 .dummy{
     width: 60%;
