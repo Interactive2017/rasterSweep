@@ -22,6 +22,8 @@ raster-sweep div#raster-glass{
     position: absolute;
     top: 0;
     left: 0;
+    /* transition: transform 0.00000000000000001s; */
+    float: left;
 }
 
 #raster-sweeper-btn-image{
