@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <link rel="stylesheet" type="text/css" href="rasterSweep.css">
         <script src="bower_components/jQuery/dist/jquery.min.js"></script>
+        <script src="bower_components/mathjs/dist/math.min.js"></script>
         <script src="bower_components/angular/angular.min.js"></script>
         <script src="rasterSweep.js"></script>
         <script src="rasterSweep.directive.js"></script>
@@ -11,9 +12,13 @@
     <body ng-app="rasterSweep">
         <div class="dummy">
             <raster-sweep>
-                <img id="raster-sweeper-btn-image" src="test/original.png" alt="original">
-                <img id="raster-sweeper-top-image" src="test/modified.png" alt="original">
-                <div id="raster-glass"></div>
+                <!-- <img id="raster-sweeper-btn-image" src="test/original.png" alt="original"> -->
+                <!-- <img id="raster-sweeper-top-image" src="test/modified.png" alt="original">  -->
+                <!-- <div id="raster-glass"></div> --> 
+                <canvas id="rasterSweepCanvas">
+        
+                
+                </canvas>
             </raster-sweep>
         </div>
     </body>
