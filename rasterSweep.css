@@ -11,19 +11,24 @@ raster-sweep img{
 }
 
 raster-sweep div#raster-glass{
-    /* border-radius: 50%; */
     width: 100px;
     height: 100px;
     background-color: transparent;
-    /* border-width: 10px; */
     z-index: 1000;
     border-color: red;
     border-style: solid;
     position: absolute;
     top: 0;
     left: 0;
-    /* transition: transform 0.00000000000000001s; */
-    float: left;
+    border-radius: 5%;
+    box-shadow: 2px 2px 5px 1px black;
+}
+
+#digitiser{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2000;
 }
 
 #raster-sweeper-btn-image{
