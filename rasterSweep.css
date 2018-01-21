@@ -1,0 +1,63 @@
+
+raster-sweep img{
+    /* width: 100px;
+    height: 100px; */
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+raster-sweep div#raster-glass{
+    width: 100px;
+    height: 100px;
+    background-color: transparent;
+    z-index: 1000;
+    border-color: red;
+    border-style: solid;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 5%;
+    box-shadow: 2px 2px 5px 1px black;
+}
+
+#digitiser{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2000;
+}
+
+#raster-sweeper-btn-image{
+    z-index: 50;
+}
+
+#raster-sweeper-top-image{
+    z-index: 100;
+}
+raster-sweep,div#raster-glass :hover{
+    cursor: none;
+}
+
+/* raster-sweep div#raster-glass{
+
+    background-repeat:no-repeat;
+    background-position:center top;
+    background-attachment:fixed;
+    background-size:cover;
+    -webkit-background-size:cover;
+    -moz-background-size:cover;
+    -o-background-size:cover;
+} */
+
+
+.dummy{
+    width: 60%;
+    /* margin-top: 10%;
+    margin-left: 30%; */
+}
+
+body{
+    margin: 0;
+    padding: 0;
+}
