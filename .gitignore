@@ -8,6 +8,7 @@ yarn-debug.log*
 yarn-error.log*
 
 .vscode
+process.py
 
 # Runtime data
 pids
