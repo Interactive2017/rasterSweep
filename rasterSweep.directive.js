@@ -227,8 +227,13 @@
 
             // listen to move events
             dig[0].onmousemove = function(moveevent){
+                // Resizing
                 if (moveevent.altKey) {
-                    sweeperWidth = sweeperWidth +  moveevent.movementX/10 + moveevent.movementY/10 ;
+                    // Check if max size is reached 
+                    if (sweeperWidth < img[0].height/2 && sweeperWidth < img[0].width/2){
+                        // Resize
+                        sweeperWidth = sweeperWidth +  moveevent.movementX/10 + moveevent.movementY/10 ;
+                    }
                     sweeper.css('width', sweeperWidth + 'px');
                     sweeper.css('height', sweeperWidth + 'px');
                     }
