@@ -227,6 +227,11 @@
 
             // listen to move events
             dig[0].onmousemove = function(moveevent){
+                if (moveevent.altKey) {
+                    sweeperWidth = sweeperWidth +  moveevent.movementX/10 + moveevent.movementY/10 ;
+                    sweeper.css('width', sweeperWidth + 'px');
+                    sweeper.css('height', sweeperWidth + 'px');
+                    }
                 // get mouse position within image
                 var mouseX = moveevent.pageX - img[0].offsetLeft;
                 var mouseY = moveevent.pageY - img[0].offsetTop;
