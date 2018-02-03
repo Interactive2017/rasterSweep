@@ -224,20 +224,15 @@
             sweeper.css('height', sweeperWidth + 'px');
             sweeper.css('border-width', sweeperBorderWidth + 'px');
             img.css('opacity', '0');
-
+            // Resize on alt + mousewheel
             dig[0].onwheel = function(wheelevent){
                 if(wheelevent.altKey){
-                    console.log("wheeel");
-                        // Check if max size is reached 
-                    console.log(wheelevent.deltaY);
-
+                     // Check if max size is reached 
                     if (sweeperWidth < img[0].height/2 && sweeperWidth < img[0].width/2 && wheelevent.deltaY > 0){
                         sweeperWidth = sweeperWidth +  wheelevent.deltaY;                     
-                    } 
-
-                    if(sweeperWidth > img[0].height/10 && sweeperWidth > img[0].width/10 && wheelevent.deltaY < 0){
+                    }  else if (sweeperWidth > img[0].height/10 && sweeperWidth > img[0].width/10 && wheelevent.deltaY < 0){
                         sweeperWidth = sweeperWidth +  wheelevent.deltaY;
-                    }
+                    } 
                 }
                 sweeper.css('width', sweeperWidth + 'px');
                 sweeper.css('height', sweeperWidth + 'px');
