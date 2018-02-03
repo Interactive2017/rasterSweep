@@ -257,47 +257,62 @@
                 var mouseX = moveevent.pageX - img[0].offsetLeft;
                 var mouseY = moveevent.pageY - img[0].offsetTop;
 
-                    // check if div would overlap image borders
-                    if(mouseX > (img[0].width - sweeperWidth)) mouseX = img[0].width - sweeperWidth;
-                    if(mouseX < img[0].offsetLeft) mouseX = img[0].offsetLeft;
-                    if(mouseY > (img[0].height - sweeperWidth)) mouseY = img[0].height - sweeperWidth;
-                    if(mouseY < img[0].offsetTop) mouseY = img[0].offsetTop;
-                    
-                    // set sweeper position
-                    sweeper.css('left', mouseX + 'px');
-                    sweeper.css('top', mouseY + 'px');
+                checkBoundaries(mouseX, mouseY);
+                  
+                  // set sweeper position
+                moveSweeper(sweeper, mouseX, mouseY);
 
-                    // clip overlay image
+                // clip overlay image
+                clipOverlayImage(sweeperWidth, sweeperBorderWidth, img, mouseX, mouseY);
+                 
+                  // get difference value
+                  var rectGlassContent = sumOfDifferencesRect(diffCtx, mouseX , mouseY , sweeperWidth);
+                  // console.log('Rect:', rectGlassContent);
+                  // Circle test
+                  // var circleGlassContent = sumOfDifferencesCircle(diffCtx, mouseX , mouseY , sweeperWidth, sweeper);
+                  // console.log('Circle:', circleGlassContent);
+                  // get the color of the border depending on the amount of differences
+                recolorBorder(rectGlassContent,sweeperWidth);
+                }
+
+                function recolorBorder(glassDiffSum, sweeperWidth){
+                    var borderColor = getHSLColor(glassDiffSum, sweeperWidth);
+                    sweeper.css('border-color', borderColor);  
+                }
+
+                function clipOverlayImage(sweeperWidth, sweeperBorderWidth, img, mouseX, mouseY){
                     var fromTop = mouseY;
                     var fromRight = img[0].width - sweeperWidth - mouseX - sweeperBorderWidth;
                     var fromBottom = img[0].height - sweeperWidth - mouseY - sweeperBorderWidth;
                     var fromLeft = mouseX;
                     img.css('clip-path', 'inset(' + fromTop + 'px ' + fromRight + 'px ' + fromBottom + 'px ' +  fromLeft + 'px)');
                     img.css('opacity', '1');
-                    // get difference value
-                    var rectGlassContent = sumOfDifferencesRect(diffCtx, mouseX , mouseY , sweeperWidth);
-                    // console.log('Rect:', rectGlassContent);
-                    // Circle test
-                    // var circleGlassContent = sumOfDifferencesCircle(diffCtx, mouseX , mouseY , sweeperWidth, sweeper);
-                    // console.log('Circle:', circleGlassContent);
-                    // get the color of the border depending on the amount of differences
-                    var borderColor = getHSLColor(rectGlassContent, sweeperWidth);
-                    sweeper.css('border-color', borderColor);
+                }
 
-                    // inputs: glassContent is the difference , widthOfGlass
-                    function getHSLColor(glassContent, sweeperWidth){
-                        var maxValueGlass = sweeperWidth * sweeperWidth;
-                        var normalizedColor = glassContent / maxValueGlass;
-                        // invert Color
-                        var hue = 120 - (normalizedColor * 120);
-                        // if color turns green, scale lightness so that it fades to white
-                        if(hue > 100){
-                            var index = hue - 100;
-                            var lightness = 50 + (index * 3)
-                            return 'hsl(' + hue +', 100%, '+ lightness + '%)';
-                        } 
-                        return 'hsl(' + hue +', 100%, '+ '50%)';
-                    }
+                function moveSweeper(sweeper, mouseX, mouseY){
+                    sweeper.css('left', mouseX + 'px');
+                    sweeper.css('top', mouseY + 'px');
+                }
+                 // check if div would overlap image borders
+                function checkBoundaries(mouseX, mouseY){
+                    if(mouseX > (img[0].width - sweeperWidth)) mouseX = img[0].width - sweeperWidth;
+                    if(mouseX < img[0].offsetLeft) mouseX = img[0].offsetLeft;
+                    if(mouseY > (img[0].height - sweeperWidth)) mouseY = img[0].height - sweeperWidth;
+                    if(mouseY < img[0].offsetTop) mouseY = img[0].offsetTop;
+                }
+                // inputs: glassContent is the difference , widthOfGlass
+                function getHSLColor(glassContent, sweeperWidth){
+                    var maxValueGlass = sweeperWidth * sweeperWidth;
+                    var normalizedColor = glassContent / maxValueGlass;
+                    // invert Color
+                    var hue = 120 - (normalizedColor * 120);
+                    // if color turns green, scale lightness so that it fades to white
+                    if(hue > 100){
+                        var index = hue - 100;
+                        var lightness = 50 + (index * 3)
+                        return 'hsl(' + hue +', 100%, '+ lightness + '%)';
+                    } 
+                    return 'hsl(' + hue +', 100%, '+ '50%)';
                 }
             });
         }
