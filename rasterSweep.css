@@ -7,7 +7,7 @@ raster-sweep img{
     left: 0;
 }
 
-raster-sweep div#raster-glass{
+raster-sweep div#rs-glass{
     width: 100px;
     height: 100px;
     background-color: transparent;
@@ -21,21 +21,21 @@ raster-sweep div#raster-glass{
     box-shadow: 2px 2px 5px 1px black;
 }
 
-#digitiser{
+raster-sweep #rs-digitiser{
     position: absolute;
     top: 0;
     left: 0;
     z-index: 2000;
 }
 
-#raster-sweeper-btn-image{
+raster-sweep #rs-btn-image{
     z-index: 50;
 }
 
-#raster-sweeper-top-image{
+raster-sweep #rs-top-image{
     z-index: 100;
 }
-raster-sweep,div#raster-glass :hover{
+raster-sweep,div#rs-glass :hover{
     cursor: none;
 }
 
@@ -60,4 +60,11 @@ raster-sweep,div#raster-glass :hover{
 body{
     margin: 0;
     padding: 0;
+}
+
+raster-sweep .rs-canvas{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
 }

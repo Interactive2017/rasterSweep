@@ -224,9 +224,9 @@
 
                 // Display
                 // get elements
-                var img = element.find('#raster-sweeper-top-image');
-                var dig = element.find('#digitiser');
-                var sweeper = element.find('#raster-glass');
+                var img = element.find('#rs-top-image');
+                var dig = element.find('#rs-digitiser');
+                var sweeper = element.find('#rs-glass');
 
                 // set css of elements
                 dig.css('width', img[0].width + 'px'),
