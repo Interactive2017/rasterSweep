@@ -3,28 +3,18 @@
     <head>
         <meta charset="utf-8">
         <link rel="stylesheet" type="text/css" href="rasterSweep.css">
+        <link rel="stylesheet" type="text/css" href="app.css">
         <script src="bower_components/jQuery/dist/jquery.min.js"></script>
         <script src="bower_components/mathjs/dist/math.min.js"></script>
         <script src="bower_components/angular/angular.min.js"></script>
+        <script src="app.js"></script>
         <script src="rasterSweep.js"></script>
         <script src="rasterSweep.directive.js"></script>
         <script src="include/pixelmatch.js"></script>
     </head>
-    <body ng-app="rasterSweep">
-        <div class="dummy">
-            <raster-sweep>
-                <!-- Display    -->
-                <img id="raster-sweeper-btn-image" src="test/original.png" alt="original">
-                <img id="raster-sweeper-top-image" src="test/modified.png" alt="original">
-                <div id="raster-glass"></div>
-                <div id="digitiser"></div>
-                <!-- used for Calculations currently Dummy Data -->
-                <canvas id="rasterSweepCanvas" height='301px' width='450px'></canvas>
-                <canvas id="diffCanvas" height='301px' width='450px'></canvas>
-                <canvas id="rasterSweepCanvasBg" height='301px' width='450px'></canvas>
-            </raster-sweep>
-            <div>
-            </div>
+    <body ng-app="app">
+        <div class="dummy" ng-controller="myCtrl">
+            <raster-sweep rs-base="{{path1}}" rs-overlay="{{path2}}"></raster-sweep>
         </div>
     </body>
 </html>
