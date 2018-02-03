@@ -225,19 +225,27 @@
             sweeper.css('border-width', sweeperBorderWidth + 'px');
             img.css('opacity', '0');
 
+            dig[0].onwheel = function(wheelevent){
+                if(wheelevent.altKey){
+                    console.log("wheeel");
+                        // Check if max size is reached 
+                    console.log(wheelevent.deltaY);
+
+                    if (sweeperWidth < img[0].height/2 && sweeperWidth < img[0].width/2 && wheelevent.deltaY > 0){
+                        sweeperWidth = sweeperWidth +  wheelevent.deltaY;                     
+                    } 
+
+                    if(sweeperWidth > img[0].height/10 && sweeperWidth > img[0].width/10 && wheelevent.deltaY < 0){
+                        sweeperWidth = sweeperWidth +  wheelevent.deltaY;
+                    }
+                }
+                sweeper.css('width', sweeperWidth + 'px');
+                sweeper.css('height', sweeperWidth + 'px');
+            }
+        
             // listen to move events
             dig[0].onmousemove = function(moveevent){
-                // Resizing
-                if (moveevent.altKey) {
-                    // Check if max size is reached 
-                    if (sweeperWidth < img[0].height/2 && sweeperWidth < img[0].width/2){
-                        // Resize
-                        sweeperWidth = sweeperWidth +  moveevent.movementX/10 + moveevent.movementY/10 ;
-                    }
-                    sweeper.css('width', sweeperWidth + 'px');
-                    sweeper.css('height', sweeperWidth + 'px');
-                    }
-                // get mouse position within image
+                 // get mouse position within image
                 var mouseX = moveevent.pageX - img[0].offsetLeft;
                 var mouseY = moveevent.pageY - img[0].offsetTop;
 
@@ -260,10 +268,10 @@
                 img.css('opacity', '1');
                 // get difference value
                 var rectGlassContent = sumOfDifferencesRect(diffCtx, mouseX , mouseY , sweeperWidth);
-                console.log('Rect:', rectGlassContent);
+                // console.log('Rect:', rectGlassContent);
                 // Circle test
-                var circleGlassContent = sumOfDifferencesCircle(diffCtx, mouseX , mouseY , sweeperWidth, sweeper);
-                console.log('Circle:', circleGlassContent);
+                // var circleGlassContent = sumOfDifferencesCircle(diffCtx, mouseX , mouseY , sweeperWidth, sweeper);
+                // console.log('Circle:', circleGlassContent);
                 // get the color of the border depending on the amount of differences
                 var borderColor = getHSLColor(rectGlassContent, sweeperWidth);
                 sweeper.css('border-color', borderColor);
