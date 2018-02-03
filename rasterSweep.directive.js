@@ -249,6 +249,13 @@
                 }
                 sweeper.css('width', sweeperWidth + 'px');
                 sweeper.css('height', sweeperWidth + 'px');
+
+                var mouseX = wheelevent.pageX - img[0].offsetLeft;
+                var mouseY = wheelevent.pageY - img[0].offsetTop;
+
+                clipOverlayImage(sweeperWidth, sweeperBorderWidth, img, mouseX, mouseY);
+                var sumOfDifferences =  sumOfDifferencesRect(diffCtx, mouseX , mouseY , sweeperWidth);
+                recolorBorder(sumOfDifferences, sweeperWidth);
             }
         
             // listen to move events
@@ -256,10 +263,10 @@
                  // get mouse position within image
                 var mouseX = moveevent.pageX - img[0].offsetLeft;
                 var mouseY = moveevent.pageY - img[0].offsetTop;
-
+                // Checks if Sweeper is inside image
                 checkBoundaries(mouseX, mouseY);
                   
-                  // set sweeper position
+                 // set sweeper position
                 moveSweeper(sweeper, mouseX, mouseY);
 
                 // clip overlay image
