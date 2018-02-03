@@ -17,6 +17,7 @@
   ],
   "dependencies": {
     "angular": "^1.6.8",
-    "jQuery": "^3.2.1"
+    "jQuery": "^3.2.1",
+    "mathjs": "^3.20.1"
   }
 }
