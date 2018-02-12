@@ -2,6 +2,8 @@
 raster-sweep img{
     /* width: 100px;
     height: 100px; */
+    min-width: 100%;
+    min-height: 100%;
     position: absolute;
     top: 0;
     left: 0;
@@ -67,4 +69,10 @@ raster-sweep .rs-canvas{
     top: 0;
     left: 0;
     z-index: 0;
+    min-width: 100%;
+    min-height: 100%;
+}
+
+.raster-wrapper{
+    position: relative;
 }

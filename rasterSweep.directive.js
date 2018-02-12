@@ -59,13 +59,13 @@
                 context.fillRect(30,30,50,50);
                 context.stroke();
                 
-                contextBg.beginPath();
-                contextBg.arc(centerX, centerY, 40, 0, 2 * Math.PI, false);
-                contextBg.fillStyle = 'green';
-                contextBg.fill();
-                contextBg.lineWidth = 1;
-                contextBg.strokeStyle = '#003300';
-                contextBg.stroke();
+                // contextBg.beginPath();
+                // contextBg.arc(centerX, centerY, 40, 0, 2 * Math.PI, false);
+                // contextBg.fillStyle = 'green';
+                // contextBg.fill();
+                // contextBg.lineWidth = 1;
+                // contextBg.strokeStyle = '#003300';
+                // contextBg.stroke();
                 
                 // Dummy Data end / Cors
                 
@@ -227,20 +227,20 @@
                 var img = element.find('#rs-top-image');
                 var dig = element.find('#rs-digitiser');
                 var sweeper = element.find('#rs-glass');
-
-            // set css of elements
-            dig.css('width', img[0].width + 'px'),
-            dig.css('height', img[0].height + 'px');
-            var sweeperWidth = Math.floor(img[0].width/5);
-            var sweeperBorderWidth = Math.floor(img[0].width/100);
-            sweeper.css('width', sweeperWidth + 'px');
-            sweeper.css('height', sweeperWidth + 'px');
-            sweeper.css('border-width', sweeperBorderWidth + 'px');
-            img.css('opacity', '0');
+                
+                // set css of elements
+                dig.css('width', img[0].width + 'px'),
+                dig.css('height', img[0].height + 'px');
+                var sweeperWidth = Math.floor(img[0].width/5);
+                var sweeperBorderWidth = Math.floor(img[0].width/100);
+                sweeper.css('width', sweeperWidth + 'px');
+                sweeper.css('height', sweeperWidth + 'px');
+                sweeper.css('border-width', sweeperBorderWidth + 'px');
+                img.css('opacity', '0');
             // Resize on alt + mousewheel
             dig[0].onwheel = function(wheelevent){
                      // Check if max size is reached 
-                    if (sweeperWidth < img[0].height/2 && sweeperWidth < img[0].width/2 && wheelevent.deltaY > 0){
+                    if (sweeperWidth < img[0].height/3 && sweeperWidth < img[0].width/3 && wheelevent.deltaY > 0){
                         sweeperWidth = sweeperWidth +  wheelevent.deltaY;                     
                     }  else if (sweeperWidth > img[0].height/10 && sweeperWidth > img[0].width/10 && wheelevent.deltaY < 0){
                         sweeperWidth = sweeperWidth +  wheelevent.deltaY;

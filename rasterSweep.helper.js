@@ -12,7 +12,8 @@
             clipOverlayImage: clipOverlayImage,
             moveSweeper: moveSweeper,
             checkBoundaries: checkBoundaries,
-            getHSLColor: getHSLColor
+            getHSLColor: getHSLColor,
+            getSingleColorPalette: getSingleColorPalette
         };
 
         return service;
@@ -20,7 +21,7 @@
         ////////
 
         function recolorBorder(glassDiffSum, sweeperWidth, sweeper){
-            var borderColor = getHSLColor(glassDiffSum, sweeperWidth);
+            var borderColor = getSingleColorPalette(100, glassDiffSum, sweeperWidth);
             sweeper.css('border-color', borderColor);  
         }
 
@@ -45,6 +46,7 @@
             if(mouseY < img[0].offsetTop) mouseY = img[0].offsetTop;
         }
         // inputs: glassContent is the difference , widthOfGlass
+        // RED , YELLOW, GREEN, WHITE
         function getHSLColor(glassContent, sweeperWidth){
             var maxValueGlass = sweeperWidth * sweeperWidth;
             var normalizedColor = glassContent / maxValueGlass;
@@ -57,6 +59,19 @@
                 return 'hsl(' + hue +', 100%, '+ lightness + '%)';
             } 
             return 'hsl(' + hue +', 100%, '+ '50%)';
+        }
+
+        // get color palette depending on input hue value
+        function getSingleColorPalette(hue, glassContent, sweeperWidth){
+            var maxValueGlass = sweeperWidth * sweeperWidth;
+            var normalizedColor = glassContent / maxValueGlass;
+            var lightness = 100 - (normalizedColor * 100)
+            if(lightness < 80){
+                var lightness = 60 - ((60 - lightness)/4.5);
+                return 'hsl(' + hue +', 100%, '+ lightness + '%)';
+            }
+            return 'hsl(' + hue +', 100%, '+ lightness + '%)';
+
         }
 
     }
