@@ -2,11 +2,11 @@
 raster-sweep img{
     /* width: 100px;
     height: 100px; */
-    min-width: 100%;
-    min-height: 100%;
     position: absolute;
     top: 0;
     left: 0;
+    min-width: 100%;
+    max-width: 100%;
 }
 
 raster-sweep div#rs-glass{
@@ -28,6 +28,8 @@ raster-sweep #rs-digitiser{
     top: 0;
     left: 0;
     z-index: 2000;
+    min-width: 100%;
+    max-width: 100%;
 }
 
 raster-sweep #rs-btn-image{
@@ -70,9 +72,9 @@ raster-sweep .rs-canvas{
     left: 0;
     z-index: 0;
     min-width: 100%;
-    min-height: 100%;
+    max-width: 100%;
 }
 
-.raster-wrapper{
+raster-sweep .raster-wrapper{
     position: relative;
 }

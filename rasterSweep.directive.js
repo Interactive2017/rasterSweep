@@ -14,7 +14,7 @@
                 overlay: '@rsOverlay'
             },
             // templateUrl: 'rasterSweep.template.html',
-            template: '<div>'
+            template: '<div class="raster-wrapper">'
                            + '<canvas class="rs-canvas" id="rasterSweepCanvas" height="301px" width="450px"></canvas>'
                            + '<canvas class="rs-canvas" id="diffCanvas" height="301px" width="450px"></canvas>'
                            + '<canvas class="rs-canvas" id="rasterSweepCanvasBg" height="301px" width="450px"></canvas>'
@@ -71,13 +71,13 @@
                 context.fillRect(30,30,50,50);
                 context.stroke();
                 
-                // contextBg.beginPath();
-                // contextBg.arc(centerX, centerY, 40, 0, 2 * Math.PI, false);
-                // contextBg.fillStyle = 'green';
-                // contextBg.fill();
-                // contextBg.lineWidth = 1;
-                // contextBg.strokeStyle = '#003300';
-                // contextBg.stroke();
+                contextBg.beginPath();
+                contextBg.arc(centerX, centerY, 40, 0, 2 * Math.PI, false);
+                contextBg.fillStyle = 'green';
+                contextBg.fill();
+                contextBg.lineWidth = 1;
+                contextBg.strokeStyle = '#003300';
+                contextBg.stroke();
                 
                 // Dummy Data end / Cors
                 
@@ -119,119 +119,6 @@
                     }
                     return value;
                 }
-                                
-                           
-            // // Calculates the sum of the differences for a circle (currently more a square turned by 45 degrees)
-            // // Inputs: context is the difference Canvas, mouseX and mouseY are the X and Y coordinates from the sweeper
-            // function sumOfDifferencesCircle(context, mouseX, mouseY, sweeperWidth, sweeper){
-            //     // Mouse position
-            //     var x = mouseX;
-            //     var y = mouseY;
-
-            //     // X and Y coordinates for the center of glass
-            //     var xCenter = mouseX + (sweeperWidth/2);
-            //     var yCenter = mouseY + (sweeperWidth/2);
-
-            //     // Lower right corner of the glass
-            //     var xEnd = mouseX + sweeperWidth;
-            //     var yEnd = mouseY + sweeperWidth;
-
-            //     // LL = lowerLeft
-            //     // LR = lowerRight
-            //     // UL = upperLeft
-            //     // UR = upperRight
-
-            //     // LOWER LEFT QUARTER
-            //     var xLL = mouseX;
-            //     var yLL = mouseY + (sweeperWidth/2);
-            //     var circleValueLL = 0;
-            //     while (xLL < xCenter) {
-            //         circleValueLL = circleValueLL + SumRowLeftHalfOfImage(context, xLL, yLL, xCenter);
-            //         xLL++;
-            //         yLL++;
-            //     }
-            //     // console.log('Lower Left:', circleValueLL);
-
-            //     // LOWER RIGHT QUARTER
-            //     var xLR = mouseX + sweeperWidth;
-            //     var yLR = mouseY + (sweeperWidth/2);
-            //     var circleValueLR = 0;
-            //     while(xLR > xCenter){
-            //         circleValueLR = circleValueLR + SumRowRightHalfOfImage(context,xLR, yLR, xCenter);
-            //         xLR--;
-            //         yLR++;
-            //     }
-            //     // console.log('Lower Right',circleValueLR);
-                
-            //     // UPPER LEFT QUARTER
-            //     var xUL = mouseX;
-            //     var yUL = mouseY + (sweeperWidth/2);
-            //     var circleValueUL = 0;
-            //     while(xUL < xCenter){
-            //         circleValueUL = circleValueUL + SumRowLeftHalfOfImage(context, xUL, yUL, xCenter);
-            //         xUL++;
-            //         yUL--;
-            //     }
-            //     // console.log('Upper Left', circleValueUL);
-
-            //     // UPPER RIGHT QUARTER
-            //     var xUR = mouseX + sweeperWidth;
-            //     var yUR = mouseY + (sweeperWidth/2);
-            //     var circleValueUR = 0;
-            //     while(xUR > xCenter){
-            //         circleValueUR = circleValueUR + SumRowRightHalfOfImage(context, xUR, yUR, xCenter);
-            //         xUR--;
-            //         yUR--;
-            //     }
-            //     // console.log('Upper Right', circleValueUR);
-            //     // Styling Borders depending on the distribution of the values
-            //     // if((circleValueLL + circleValueUL) < (circleValueLR + circleValueUR)){
-            //     //     sweeper.css('border-left-style', 'dashed');
-            //     //     sweeper.css('border-right-style', 'solid');                                                       
-            //     // } else {
-            //     //     sweeper.css('border-left-style', 'solid');
-            //     //     sweeper.css('border-right-style', 'dashed');                                                         
-            //     // }
-            //     // if((circleValueUL + circleValueUR) < (circleValueLL + circleValueLR)){
-            //     //     sweeper.css('border-top-style', 'dashed');
-            //     //     sweeper.css('border-bottom-style', 'solid');                           
-            //     // } else {
-            //     //     sweeper.css('border-top-style', 'solid');
-            //     //     sweeper.css('border-bottom-style', 'dashed');                                                        
-            //     // }
-
-            //     // Return the 4 halves of the circle
-            //     return circleValueLL + circleValueLR + circleValueUR + circleValueLL;
-            // }
-
-        
-            // // Sums up the rows, when the rows are on the left half of the image
-            // // Inputs: context is the difference Canvas
-            // function SumRowLeftHalfOfImage(context, x, y, xEnd){
-            //     var rowValue = 0;
-            //     while(x < xEnd){
-            //         var pixelValue = context.getImageData(x,y,1,1).data[0];
-            //         if(pixelValue === 0){
-            //             rowValue ++;
-            //         }
-            //         x++;
-            //     }
-            //     return rowValue
-            // }
-            // // Sums up the rows, when the rows are on the right half of the image
-            // // Inputs: context is the difference Canvas
-            // function SumRowRightHalfOfImage(context, x, y, xEnd){
-            //     var rowValue = 0;
-            //     while(x > xEnd){
-            //         var pixelValue = context.getImageData(x,y,1,1).data[0];
-
-            //         if(pixelValue === 0){
-            //             rowValue++;
-            //         }
-            //         x--;
-            //     }
-            //     return rowValue
-            // }
 
 
                 // Display
@@ -239,58 +126,90 @@
                 var img = element.find('#rs-top-image');
                 var dig = element.find('#rs-digitiser');
                 var sweeper = element.find('#rs-glass');
-                
-                // set css of elements
-                dig.css('width', img[0].width + 'px'),
-                dig.css('height', img[0].height + 'px');
-                var sweeperWidth = Math.floor(img[0].width/5);
-                var sweeperBorderWidth = Math.floor(img[0].width/100);
-                sweeper.css('width', sweeperWidth + 'px');
-                sweeper.css('height', sweeperWidth + 'px');
-                sweeper.css('border-width', sweeperBorderWidth + 'px');
-                img.css('opacity', '0');
-            // Resize on alt + mousewheel
-            dig[0].onwheel = function(wheelevent){
-                     // Check if max size is reached 
-                    if (sweeperWidth < img[0].height/3 && sweeperWidth < img[0].width/3 && wheelevent.deltaY > 0){
-                        sweeperWidth = sweeperWidth +  wheelevent.deltaY;                     
-                    }  else if (sweeperWidth > img[0].height/10 && sweeperWidth > img[0].width/10 && wheelevent.deltaY < 0){
-                        sweeperWidth = sweeperWidth +  wheelevent.deltaY;
-                    } 
-                sweeper.css('width', sweeperWidth + 'px');
-                sweeper.css('height', sweeperWidth + 'px');
+                var sweeperWidth;
+                var sweeperBorderWidth;
+                img.bind('load', function(){
 
-                var mouseX = wheelevent.pageX - img[0].offsetLeft;
-                var mouseY = wheelevent.pageY - img[0].offsetTop;
 
-                rsHelper.clipOverlayImage(sweeperWidth, sweeperBorderWidth, img, mouseX, mouseY);
-                var sumOfDifferences =  sumOfDifferencesRect(diffCtx, mouseX , mouseY , sweeperWidth);
-                rsHelper.recolorBorder(sumOfDifferences, sweeperWidth, sweeper);
-            }
-        
-            // listen to move events
-            dig[0].onmousemove = function(moveevent){
-                // get mouse position within image
-                var mouseX = moveevent.pageX - img[0].offsetLeft;
-                var mouseY = moveevent.pageY - img[0].offsetTop;
 
-                rsHelper.checkBoundaries(img, sweeperWidth, mouseX, mouseY);
 
-                // set sweeper position
-                rsHelper.moveSweeper(sweeper, mouseX, mouseY);
-
-                // clip overlay image
-                rsHelper.clipOverlayImage(sweeperWidth, sweeperBorderWidth, img, mouseX, mouseY);
-
-                // get difference value
-                var rectGlassContent = sumOfDifferencesRect(diffCtx, mouseX , mouseY , sweeperWidth);
-                // console.log('Rect:', rectGlassContent);
-                // Circle test
-                // var circleGlassContent = sumOfDifferencesCircle(diffCtx, mouseX , mouseY , sweeperWidth, sweeper);
-                // console.log('Circle:', circleGlassContent);
-                // get the color of the border depending on the amount of differences
-                rsHelper.recolorBorder(rectGlassContent,sweeperWidth, sweeper);
-            };
+                    function getOffset( el ) {
+                        var _x = 0;
+                        var _y = 0;
+                        console.info(el);
+                        while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
+                            console.info('in while');
+                            _x += el.offsetLeft - el.scrollLeft;
+                            _y += el.offsetTop - el.scrollTop;
+                            el = el.offsetParent;
+                        }
+                        return { top: _y, left: _x };
+                    }
+                    
+                    
+                    
+                    
+                    
+                    
+                    // set css of elements
+                    dig.css('width', img[0].width + 'px'),
+                    dig.css('height', img[0].height + 'px');
+                    console.info('rasterSweep img height ' + img[0].height);
+                    console.info('rasterSweeper', element[0].parentElement);
+                    element[0].parentElement.style.height = img[0].height + 'px';
+                    sweeperWidth = Math.floor(img[0].width/5);
+                    sweeperBorderWidth = Math.floor(img[0].width/100);
+                    sweeper.css('width', sweeperWidth + 'px');
+                    sweeper.css('height', sweeperWidth + 'px');
+                    sweeper.css('border-width', sweeperBorderWidth + 'px');
+                    img.css('opacity', '0');
+                    var offset = getOffset( dig[0] ); 
+                    console.info('new offset left ' + offset.left + ", top "  + offset.top );
+                    // Resize on alt + mousewheel
+                    dig[0].onwheel = function(wheelevent){
+                        wheelevent.preventDefault();
+                        // Check if max size is reached 
+                        if (sweeperWidth < img[0].height/2 && sweeperWidth < img[0].width/2 && wheelevent.deltaY > 0){
+                            sweeperWidth = sweeperWidth +  wheelevent.deltaY;                     
+                        }  else if (sweeperWidth > img[0].height/10 && sweeperWidth > img[0].width/10 && wheelevent.deltaY < 0){
+                            sweeperWidth = sweeperWidth +  wheelevent.deltaY;
+                        } 
+                        sweeper.css('width', sweeperWidth + 'px');
+                        sweeper.css('height', sweeperWidth + 'px');
+                        
+                        var mouseX = wheelevent.pageX - offset.left;
+                        var mouseY = wheelevent.pageY - offset.top;
+                        
+                        rsHelper.clipOverlayImage(sweeperWidth, sweeperBorderWidth, img, mouseX, mouseY);
+                        var sumOfDifferences =  sumOfDifferencesRect(diffCtx, mouseX , mouseY , sweeperWidth);
+                        rsHelper.recolorBorder(sumOfDifferences, sweeperWidth, sweeper);
+                    }
+                    
+                    // listen to move events
+                    dig[0].onmousemove = function(moveevent){
+                        // get mouse position within image
+                        offset = getOffset(dig[0]);
+                        var mouseX = moveevent.pageX - offset.left;
+                        var mouseY = moveevent.pageY - offset.top;
+                        
+                        rsHelper.checkBoundaries(img, sweeperWidth, mouseX, mouseY);
+                        
+                        // set sweeper position
+                        rsHelper.moveSweeper(sweeper, mouseX, mouseY);
+                        
+                        // clip overlay image
+                        rsHelper.clipOverlayImage(sweeperWidth, sweeperBorderWidth, img, mouseX, mouseY);
+                        
+                        // get difference value
+                        var rectGlassContent = sumOfDifferencesRect(diffCtx, mouseX , mouseY , sweeperWidth);
+                        // console.log('Rect:', rectGlassContent);
+                        // Circle test
+                        // var circleGlassContent = sumOfDifferencesCircle(diffCtx, mouseX , mouseY , sweeperWidth, sweeper);
+                        // console.log('Circle:', circleGlassContent);
+                        // get the color of the border depending on the amount of differences
+                        rsHelper.recolorBorder(rectGlassContent,sweeperWidth, sweeper);
+                    };
+                });
 
                 
             });
