@@ -21,7 +21,8 @@
         ////////
 
         function recolorBorder(glassDiffSum, sweeperWidth, sweeper){
-            var borderColor = getSingleColorPalette(100, glassDiffSum, sweeperWidth);
+            var borderColor =getHSLColor(glassDiffSum,sweeperWidth);
+            // var borderColor = getSingleColorPalette(100, glassDiffSum, sweeperWidth);
             sweeper.css('border-color', borderColor);  
         }
 
@@ -87,9 +88,9 @@
             },
             // templateUrl: 'rasterSweep.template.html',
             template: '<div class="raster-wrapper">'
-                           + '<canvas class="rs-canvas" id="rasterSweepCanvas" height="301px" width="450px"></canvas>'
-                           + '<canvas class="rs-canvas" id="diffCanvas" height="301px" width="450px"></canvas>'
-                           + '<canvas class="rs-canvas" id="rasterSweepCanvasBg" height="301px" width="450px"></canvas>'
+                           + '<canvas class="rs-canvas" id="rasterSweepCanvas"></canvas>'
+                           + '<canvas class="rs-canvas" id="diffCanvas"></canvas>'
+                           + '<canvas class="rs-canvas" id="rasterSweepCanvasBg"></canvas>'
                         
                         
                            + '<img id="rs-btn-image" ng-src="{{base}}" alt="original" />'
@@ -113,47 +114,22 @@
                 var canvas = element.find('#rasterSweepCanvas')[0];
                 var context = canvas.getContext('2d');
                 var canvasBg = element.find('#rasterSweepCanvasBg')[0];
-                var contextBg = canvasBg.getContext('2d');
+                var contextBg = canvasBg.getContext('2d');                
+                var counter = 0;
+                loadImage(firstImgPath, canvas, context);
+                loadImage(secondImgPath, canvasBg, contextBg);
+
                 var diffCanvas = element.find('#diffCanvas')[0];
                 var diffCtx = diffCanvas.getContext('2d');
-                var diff = diffCtx.createImageData(canvas.width, canvas.height);
+                var diff;
                 
-                // loadImage(firstImgPath, canvas, context);
-                // loadImage(secondImgPath, canvasBg, contextBg);
-                
-                
-                // Dummy Data / Cors
-                var centerX = canvas.width / 2;
-                var centerY = canvas.height / 2;
-                var radius = 70;
-                
-                context.beginPath();
-                context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
-                context.fillStyle = 'green';
-                context.fill();
-                context.lineWidth = 5;
-                context.strokeStyle = '#003300';
-                context.stroke();
-                
-                context.beginPath();
-                context.lineWidth="4";
-                context.fillStyle = 'red';
-                context.fill();
-                context.strokeStyle="green";
-                context.fillRect(30,30,50,50);
-                context.stroke();
-                
-                contextBg.beginPath();
-                contextBg.arc(centerX, centerY, 40, 0, 2 * Math.PI, false);
-                contextBg.fillStyle = 'green';
-                contextBg.fill();
-                contextBg.lineWidth = 1;
-                contextBg.strokeStyle = '#003300';
-                contextBg.stroke();
-                
-                // Dummy Data end / Cors
-                
-                setTimeout(function(){diffCtx.putImageData(calcDifferences(diff,context, contextBg), 0, 0); }, 300);
+                function calcAndSetDifferences (){
+                    diffCanvas.width = canvas.width;
+                    diffCanvas.height = canvas.height;
+                    diffCtx.putImageData(calcDifferences(diff,context, contextBg), 0, 0);
+                }
+
+                // setTimeout(function(){calcAndSetDifferences()); }, 300);
                 
                 function loadImage(imagePath, canvas, context){
                     var image = new Image();
@@ -161,7 +137,12 @@
                     image.onload = function(){
                         canvas.width = image.width;
                         canvas.height = image.height;
-                        // context.drawImage(image, 0, 0);
+                        context.drawImage(image, 0, 0);
+                        diff = diffCtx.createImageData(canvas.width, canvas.height);
+                        counter = counter + 1;
+                        if(counter == 2){
+                            calcAndSetDifferences();                           
+                        }
                     }
                 }
                         
@@ -171,8 +152,11 @@
                 function calcDifferences(diff, imageA, imageB){  
                     var imgA = imageA.getImageData(0, 0, canvas.width, canvas.height),
                         imgB = imageB.getImageData(0, 0, canvas.width, canvas.height);
-                
-                    pixelmatch(imgA.data, imgB.data, diff.data, canvas.width, canvas.height, {threshold: 0.1});
+                    console.info("canvas Breite:" + canvas.width);
+                    console.info("canvas Höhe:" + canvas.height);
+                    
+                    pixelmatch(imgA.data, imgB.data, diff.data, canvas.width, canvas.height, {threshold: 0.00001, includeAA: true});
+                    console.info("diff",diff);
                     return diff
                 }
                 
@@ -201,33 +185,20 @@
                 var sweeperWidth;
                 var sweeperBorderWidth;
                 img.bind('load', function(){
-
-
-
-
                     function getOffset( el ) {
                         var _x = 0;
                         var _y = 0;
-                        console.info(el);
                         while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
-                            console.info('in while');
                             _x += el.offsetLeft - el.scrollLeft;
                             _y += el.offsetTop - el.scrollTop;
                             el = el.offsetParent;
                         }
                         return { top: _y, left: _x };
                     }
-                    
-                    
-                    
-                    
-                    
-                    
+                  
                     // set css of elements
                     dig.css('width', img[0].width + 'px'),
                     dig.css('height', img[0].height + 'px');
-                    console.info('rasterSweep img height ' + img[0].height);
-                    console.info('rasterSweeper', element[0].parentElement);
                     element[0].parentElement.style.height = img[0].height + 'px';
                     sweeperWidth = Math.floor(img[0].width/5);
                     sweeperBorderWidth = Math.floor(img[0].width/100);
@@ -236,7 +207,6 @@
                     sweeper.css('border-width', sweeperBorderWidth + 'px');
                     img.css('opacity', '0');
                     var offset = getOffset( dig[0] ); 
-                    console.info('new offset left ' + offset.left + ", top "  + offset.top );
                     // Resize on alt + mousewheel
                     dig[0].onwheel = function(wheelevent){
                         wheelevent.preventDefault();
@@ -274,10 +244,7 @@
                         
                         // get difference value
                         var rectGlassContent = sumOfDifferencesRect(diffCtx, mouseX , mouseY , sweeperWidth);
-                        // console.log('Rect:', rectGlassContent);
-                        // Circle test
-                        // var circleGlassContent = sumOfDifferencesCircle(diffCtx, mouseX , mouseY , sweeperWidth, sweeper);
-                        // console.log('Circle:', circleGlassContent);
+
                         // get the color of the border depending on the amount of differences
                         rsHelper.recolorBorder(rectGlassContent,sweeperWidth, sweeper);
                     };
