@@ -128,9 +128,7 @@
                     diffCanvas.height = canvas.height;
                     diffCtx.putImageData(calcDifferences(diff,context, contextBg), 0, 0);
                 }
-
-                // setTimeout(function(){calcAndSetDifferences()); }, 300);
-                
+               
                 function loadImage(imagePath, canvas, context){
                     var image = new Image();
                     image.src = imagePath;
@@ -152,11 +150,8 @@
                 function calcDifferences(diff, imageA, imageB){  
                     var imgA = imageA.getImageData(0, 0, canvas.width, canvas.height),
                         imgB = imageB.getImageData(0, 0, canvas.width, canvas.height);
-                    console.info("canvas Breite:" + canvas.width);
-                    console.info("canvas Höhe:" + canvas.height);
                     
                     pixelmatch(imgA.data, imgB.data, diff.data, canvas.width, canvas.height, {threshold: 0.00001, includeAA: true});
-                    console.info("diff",diff);
                     return diff
                 }
                 
