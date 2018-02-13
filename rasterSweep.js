@@ -115,7 +115,7 @@
                 var context = canvas.getContext('2d');
                 var canvasBg = element.find('#rasterSweepCanvasBg')[0];
                 var contextBg = canvasBg.getContext('2d');                
-                var counter = 0;
+                var loadedImagesCounter = 0;
                 loadImage(firstImgPath, canvas, context);
                 loadImage(secondImgPath, canvasBg, contextBg);
 
@@ -128,7 +128,8 @@
                     diffCanvas.height = canvas.height;
                     diffCtx.putImageData(calcDifferences(diff,context, contextBg), 0, 0);
                 }
-               
+
+                // Loads image into a given canvas and context
                 function loadImage(imagePath, canvas, context){
                     var image = new Image();
                     image.src = imagePath;
@@ -137,8 +138,8 @@
                         canvas.height = image.height;
                         context.drawImage(image, 0, 0);
                         diff = diffCtx.createImageData(canvas.width, canvas.height);
-                        counter = counter + 1;
-                        if(counter == 2){
+                        loadedImagesCounter = loadedImagesCounter + 1;
+                        if(loadedImagesCounter == 2){
                             calcAndSetDifferences();                           
                         }
                     }
@@ -206,10 +207,10 @@
                     dig[0].onwheel = function(wheelevent){
                         wheelevent.preventDefault();
                         // Check if max size is reached 
-                        if (sweeperWidth < img[0].height/2 && sweeperWidth < img[0].width/2 && wheelevent.deltaY > 0){
-                            sweeperWidth = sweeperWidth +  wheelevent.deltaY;                     
-                        }  else if (sweeperWidth > img[0].height/10 && sweeperWidth > img[0].width/10 && wheelevent.deltaY < 0){
-                            sweeperWidth = sweeperWidth +  wheelevent.deltaY;
+                        if (sweeperWidth < img[0].height/3 && sweeperWidth < img[0].width/3 && wheelevent.deltaY > 0){
+                            sweeperWidth = sweeperWidth +  10;                     
+                        }  else if (sweeperWidth > img[0].height/12 && sweeperWidth > img[0].width/12 && wheelevent.deltaY < 0){
+                            sweeperWidth = sweeperWidth -  10;
                         } 
                         sweeper.css('width', sweeperWidth + 'px');
                         sweeper.css('height', sweeperWidth + 'px');
