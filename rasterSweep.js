@@ -97,6 +97,11 @@
                            + '<img id="rs-top-image" ng-src="{{overlay}}" alt="original" />'
                            + '<div id="rs-glass"></div>'
                            + '<div id="rs-digitiser"></div>'
+                           + '<div id="rs-legend">'
+                           +        '<small class="rs-legend-text">no differences</small>'
+                           +        '<small class="rs-legend-text" id="rs-legend-many">many differences</small>'
+                           +        '<div id="rs-legend-gradient"></div>'
+                           + '</div>'
                         
                         + '</div>',
             link: link
@@ -178,6 +183,8 @@
                 var img = element.find('#rs-top-image');
                 var dig = element.find('#rs-digitiser');
                 var sweeper = element.find('#rs-glass');
+                var legend = element.find('#rs-legend');
+                var legendGradient = element.find('#rs-legend-gradient');
                 var sweeperWidth;
                 var sweeperBorderWidth;
                 img.bind('load', function(){
@@ -195,7 +202,10 @@
                     // set css of elements
                     dig.css('width', img[0].width + 'px'),
                     dig.css('height', img[0].height + 'px');
-                    element[0].parentElement.style.height = img[0].height + 'px';
+                    legend.css('top', img[0].height + 20 + 'px');
+                    legendGradient.css('height', '10px');
+                    legendGradient.css('top', img[0].height + '10px');
+                    element[0].parentElement.style.height = img[0].height + 50 + 10 + 'px'; //img height + padding to legend + legend height + padding below legend
                     sweeperWidth = Math.floor(img[0].width/5);
                     sweeperBorderWidth = Math.floor(img[0].width/100);
                     sweeper.css('width', sweeperWidth + 'px');

@@ -54,3 +54,24 @@ raster-sweep .rs-canvas{
 raster-sweep .raster-wrapper{
     position: relative;
 }
+
+raster-sweep #rs-legend{
+    min-width: 100%;
+    max-width: 100%;
+    height: 10px;
+    position: absolute;
+    left: 0px;
+}
+
+raster-sweep #rs-legend-gradient{
+    background: linear-gradient(to right, white, yellowgreen, yellow, red);
+}
+
+raster-sweep #rs-legend-many{
+    position: absolute;
+    right: 0px;
+}
+
+raster-sweep .rs-legend-text{
+    height: 10px;
+}
