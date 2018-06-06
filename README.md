@@ -1,5 +1,7 @@
 # rasterSweep
 
+Peephole highlighting difference between two images. Interaction via moving a sliding windows over two images. Displays content of one image within sliding window; the other image outside of the sliding window. Bordercolor of window highlights the amount of different pixels between the two images for the area within the sliding window. Sliding window is resizable.
+
 include rasterSweep.min.js and rasterSweep.min.css into your html
 
 ```html
